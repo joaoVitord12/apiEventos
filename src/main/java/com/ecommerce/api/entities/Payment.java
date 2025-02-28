@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,5 +20,6 @@ public class Payment {
 
     @OneToOne
     @MapsId
-    private Order order;
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
 }

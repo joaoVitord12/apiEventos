@@ -29,7 +29,7 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) {
-        return ResponseEntity.created(paymentService.createPayment(paymentDTO));
+        return ResponseEntity.ok(paymentService.createPayment(paymentDTO));
     }
 
     @PutMapping("/{id}")

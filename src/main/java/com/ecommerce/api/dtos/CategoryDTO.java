@@ -1,21 +1,28 @@
 package com.ecommerce.api.dtos;
 
-import com.ecommerce.api.entities.Category;
-import lombok.AllArgsConstructor;
+import com.ecommerce.api.entities.Product;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.List;
+import java.util.Set;
+
+
 @Data
 public class CategoryDTO {
     private Long id;
     private String name;
+    private List<ProductDTO> products;
 
-    public CategoryDTO(String name) {
-        this.name = name;
+    public CategoryDTO(Long id, String name) {
     }
-
-    public CategoryDTO(Category x) {
+    public void setProducts(Set<Product> products) {
+        this.products = products.stream().map(
+                product ->
+                        new ProductDTO(product.getId(),
+                                product.getName(),
+                                product.getDescription(),
+                                product.getPrice(),
+                                product.getImgUrl(),
+                                product.getCategories())).toList();
     }
 }
