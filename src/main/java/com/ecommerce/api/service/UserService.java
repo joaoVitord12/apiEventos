@@ -69,6 +69,7 @@ public class UserService {
         user.setBirthDate(userDTO.getBirthDate());
         user.setPassword(userDTO.getPassword());
         user.setRoles(userDTO.getRoles());
+        user.setOrders(userDTO.getOrders());
         return user;
     }
 

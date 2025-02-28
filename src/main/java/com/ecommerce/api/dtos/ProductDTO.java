@@ -1,31 +1,43 @@
 package com.ecommerce.api.dtos;
 
+import com.ecommerce.api.entities.Category;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-    @Data
-    public class ProductDTO {
-        private Long id;
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class ProductDTO {
+    private Long id;
+    @Size(min = 2, max = 100, message = "O Campo nome precisa ter entre 2 e 100 caracteres")
+    @NotBlank(message = "O campo nome não pode ser vazio")
+    private String name;
+    @Size(min = 10, message = "O campo descrição precisa ter entre 2 e 500 caracteres")
+    @NotBlank(message = "O campo descrição não pode ser vazio")
+    private String description;
+    @NotNull(message = "O campo preço não pode ser vazio")
+    @Positive(message = "O campo preço precisa ser positivo")
+    private double price;
+    private String imgUrl;
+    @NotEmpty(message = "O campo categorias não pode ser vazio")
+    private List<CategoryDTO> categories;
 
-        @Size(min = 3, max = 50, message = "Nome deve ter entre 3 e 50 caracteres")
-        @NotBlank(message = "Nome não pode ser vazio")
-        private String name;
-
-        @Size(max = 300, message = "Descrição deve ter no máximo 300 caracteres")
-        private String description;
-
-        @NotNull(message = "Preço não pode ser vazio")
-        @Positive(message = "Preço deve ser positivo")
-        private Double price;
-
-        private String image;
-
-        @NotEmpty(message = "É obrigatório selecionar pelo menos uma categoria")
-        private List<CategoryDTO> categories = new ArrayList<>();
-
+    public ProductDTO(Long id, String name, String description, double price, String imgUrl, Set<Category> categories) {
     }
 
+
+    public void setCategories(List<CategoryDTO> categories) {
+        this.categories = categories.stream().map(
+                category ->
+                        new CategoryDTO(category.getId(),
+                                category.getName())).toList();
+    }
+    public @NotEmpty(message = "O campo categorias não pode ser vazio") List<CategoryDTO> getCategories() {
+        return categories;
+    }
+}

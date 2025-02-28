@@ -1,8 +1,10 @@
 package com.ecommerce.api.dtos;
 
+import com.ecommerce.api.entities.Order;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class UserDTO {
@@ -28,4 +30,7 @@ public class UserDTO {
 
     @Past(message = "Data de nascimento inválida")
     private LocalDate birthDate;
+
+    private List<Order> orders;
+
 }

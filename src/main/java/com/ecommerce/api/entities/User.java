@@ -38,6 +38,4 @@ public class User {
     private List<Order> orders = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> order = new ArrayList<>();
-}
+    }
